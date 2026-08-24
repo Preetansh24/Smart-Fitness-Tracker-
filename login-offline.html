@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitTrack - Login (Offline)</title>
+  <!-- Bootstrap 5 Local (Offline) -->
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f1f3f9;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    .login-container {
+      max-width: 450px;
+      margin: 100px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 8px 32px 0 rgba(148, 163, 184, 0.12);
+    }
+    .brand-title {
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 25px;
+    }
+    .brand-title span {
+      color: #ff6b00;
+    }
+    .form-control {
+      background-color: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: #0f172a;
+      transition: all 0.3s ease;
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .form-control:focus {
+      border-color: #ff6b00;
+      box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.12);
+      background-color: #ffffff;
+      color: #0f172a;
+    }
+    .form-label {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .btn-primary {
+      background: #ff6b00;
+      border: none;
+      font-weight: 700;
+      padding: 14px 20px;
+      border-radius: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(255, 107, 0, 0.2);
+    }
+    .btn-primary:hover, .btn-primary:active {
+      background: #e05e00 !important;
+      transform: translateY(-1px);
+    }
+    .text-muted {
+      color: #94a3b8 !important;
+    }
+    #errorAlert {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="login-container">
+      <h2 class="text-center brand-title">Fit<span>Track</span> Login</h2>
+      <p class="text-center text-muted mb-4">Welcome back to your premium tracker.</p>
+      
+      <div id="errorAlert" class="alert alert-danger" role="alert">
+        Invalid Email or Password!
+      </div>
+      
+      <form id="loginForm">
+        <div class="mb-3">
+          <label for="loginEmail" class="form-label">Email ID</label>
+          <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com" required>
+        </div>
+        
+        <div class="mb-4">
+          <label for="loginPassword" class="form-label">Password</label>
+          <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
+        </div>
+        
+        <div class="d-grid mt-2">
+          <button type="submit" class="btn btn-primary btn-lg">Log In</button>
+        </div>
+        
+        <div class="text-center mt-3">
+          <span class="text-muted" style="font-size: 0.85rem;">Don't have an account? <a href="registration-offline.html" style="color: #ff6b00; text-decoration: none; font-weight: 600;">Register Now</a></span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('loginEmail').value;
+      const pass = document.getElementById('loginPassword').value;
+      
+      const savedUserStr = localStorage.getItem('fittrack_user');
+      
+      if(savedUserStr) {
+        const savedUser = JSON.parse(savedUserStr);
+        if(savedUser.emailId === email && savedUser.password === pass) {
+          // Set session
+          localStorage.setItem('fittrack_session', 'true');
+          // Redirect to dashboard
+          window.location.href = 'viewport.html';
+        } else {
+          document.getElementById('errorAlert').style.display = 'block';
+        }
+      } else {
+        document.getElementById('errorAlert').innerText = "No registered user found. Please register.";
+        document.getElementById('errorAlert').style.display = 'block';
+      }
+    });
+  </script>
+  
+  <!-- Bootstrap 5 JS Bundle Local (Offline) -->
+  <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

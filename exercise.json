@@ -1,0 +1,7 @@
+[
+  { "id": 1, "name": "Push Ups", "category": "Strength", "muscleGroup": "Chest", "calories": 8 },
+  { "id": 2, "name": "Squats", "category": "Strength", "muscleGroup": "Legs", "calories": 9 },
+  { "id": 3, "name": "Running", "category": "Cardio", "muscleGroup": "Full Body", "calories": 12 },
+  { "id": 4, "name": "Plank", "category": "Core", "muscleGroup": "Abs", "calories": 5 },
+  { "id": 5, "name": "Jumping Jacks", "category": "Cardio", "muscleGroup": "Full Body", "calories": 10 }
+]

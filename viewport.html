@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="FitTrack – Premium Smart Fitness Tracker with AI voice, workout tracking, nutrition plans, and geolocation.">
+  <title>FitTrack – Premium Smart Fitness Tracker</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <!-- Tailwind compiled CSS -->
+  <link rel="stylesheet" href="./style.css">
+
+  <script defer src="app.js"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-900 min-h-screen overflow-x-hidden selection:bg-orange-400 selection:text-white">
+
+  <!-- ==========================================
+       AUDIO START OVERLAY
+       ========================================== -->
+  <div id="startOverlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center
+              bg-gradient-to-br from-orange-50 via-white to-orange-100
+              transition-opacity duration-700">
+
+    <!-- Decorative animated rings -->
+    <div class="absolute w-80 h-80 rounded-full border-2 border-orange-200 opacity-40 animate-pulse"></div>
+    <div class="absolute w-64 h-64 rounded-full border-2 border-orange-300 opacity-30 animate-pulse animate-delay-2">
+    </div>
+
+    <div class="relative z-10 text-center px-6">
+      <!-- Animated logo icon -->
+      <div class="text-7xl mb-6 animate-bounce-light inline-block">🔥</div>
+
+      <h1 class="text-5xl sm:text-6xl font-display font-black mb-3 leading-tight">
+        <span class="text-gradient">FitTrack</span>
+      </h1>
+      <p class="text-gray-500 text-lg mb-8 font-medium">Your Premium Smart Fitness Journey Starts Here</p>
+
+      <!-- Stats teaser row -->
+      <div class="flex gap-4 justify-center mb-10 flex-wrap">
+        <div class="stat-chip animate-fade-in animate-delay-1">
+          <span class="val">4+</span>
+          <span class="lbl">Workouts</span>
+        </div>
+        <div class="stat-chip animate-fade-in animate-delay-2">
+          <span class="val">1500</span>
+          <span class="lbl">kcal Plan</span>
+        </div>
+        <div class="stat-chip animate-fade-in animate-delay-3">
+          <span class="val">📍</span>
+          <span class="lbl">Live Zone</span>
+        </div>
+      </div>
+
+      <button id="startAppBtn" class="btn-primary text-lg px-10 py-3.5 gap-2">
+        🚀 Start Tracking
+      </button>
+      <p class="text-xs text-gray-400 mt-4">Tap to enable motivational audio &amp; enter the dashboard</p>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MAIN APP WRAPPER
+       ========================================== -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col gap-6">
+
+    <!-- ── HEADER ─────────────────────────────── -->
+    <header class="glass-card flex items-center justify-between py-3 hero-glow animate-fade-in">
+      <!-- Brand -->
+      <a href="#" class="flex items-center gap-3 group">
+        <span class="text-3xl animate-bounce-light group-hover:scale-110 transition-transform">🔥</span>
+        <div>
+          <h2 class="text-2xl font-display font-black leading-none tracking-tight">
+            Fit<span class="text-orange-500">Track</span>
+          </h2>
+          <p class="text-[10px] text-orange-400 uppercase tracking-widest font-semibold">Smart Fitness</p>
+        </div>
+      </a>
+
+      <!-- Nav right -->
+      <div class="flex items-center gap-3">
+        <span class="hidden sm:block badge-orange">🏅 PREMIUM</span>
+        <a href="registration-offline.html" id="authBtn" class="btn-primary text-sm py-1.5 px-5">Register</a>
+      </div>
+    </header>
+
+    <!-- ── HERO SECTION ───────────────────────── -->
+    <section class="glass-card flex flex-col md:flex-row items-center gap-6 overflow-hidden relative animate-slide-up">
+      <!-- Subtle animated background blob -->
+      <div class="absolute -top-8 -left-8 w-56 h-56 bg-orange-100 rounded-full opacity-50 blur-2xl pointer-events-none">
+      </div>
+
+      <!-- Text content -->
+      <div class="flex-1 space-y-4 relative z-10 p-2 md:p-0">
+        <span class="badge-orange animate-color-cycle" style="-webkit-text-fill-color:inherit;">🏋️ Interactive
+          Dashboard</span>
+
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-none">
+          Train <span class="text-gradient">Smart.</span>
+        </h1>
+
+        <p class="text-gray-500 text-base sm:text-lg max-w-md leading-relaxed">
+          Track workouts, monitor nutrition, detect your fitness zone live — all in one beautifully organized dashboard.
+        </p>
+
+        <!-- Quick-action pills -->
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span
+            class="inline-flex items-center gap-1 bg-green-50 text-green-600 border border-green-200 text-xs font-semibold px-3 py-1.5 rounded-full">✅
+            Workout Tracking</span>
+          <span
+            class="inline-flex items-center gap-1 bg-blue-50 text-blue-600 border border-blue-200 text-xs font-semibold px-3 py-1.5 rounded-full">📍
+            Geolocation</span>
+          <span
+            class="inline-flex items-center gap-1 bg-orange-50 text-orange-600 border border-orange-200 text-xs font-semibold px-3 py-1.5 rounded-full">🥗
+            Nutrition Plans</span>
+        </div>
+      </div>
+
+      <!-- Hero image -->
+      <div
+        class="flex-1 w-full relative rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-500 group">
+        <img id="heroImg" src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800" alt="Athlete in gym"
+          class="w-full h-64 sm:h-72 object-cover transition-transform duration-700 group-hover:scale-105">
+        <!-- gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+        <div id="imageLabel" class="absolute bottom-3 left-3 bg-white/80 backdrop-blur-md px-3 py-1
+                    rounded-lg text-xs font-semibold border border-white text-gray-800">
+          🖥️ Desktop View
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STATS STRIP ─────────────────────────── -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 animate-fade-in animate-delay-2">
+      <div class="stat-chip hover:scale-105 transition-transform">
+        <span class="val">💪</span>
+        <span class="lbl">Strength</span>
+      </div>
+      <div class="stat-chip hover:scale-105 transition-transform">
+        <span class="val">🏃</span>
+        <span class="lbl">Cardio</span>
+      </div>
+      <div class="stat-chip hover:scale-105 transition-transform">
+        <span class="val">🧘</span>
+        <span class="lbl">Flexibility</span>
+      </div>
+      <div class="stat-chip hover:scale-105 transition-transform">
+        <span class="val">🚴</span>
+        <span class="lbl">Endurance</span>
+      </div>
+    </div>
+
+    <!-- ── MAIN GRID ──────────────────────────── -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- ─── LEFT SIDEBAR ──────────────────── -->
+      <aside class="lg:col-span-4 flex flex-col gap-6">
+
+        <!-- GEOLOCATION CARD -->
+        <div class="glass-card space-y-4 animate-slide-up animate-delay-1">
+          <h3 class="section-title">📍 Live Fitness Zone</h3>
+          <p class="section-desc">Detect your current training coordinates in real-time.</p>
+
+          <div id="locationDetails" class="flex items-start gap-2 text-sm font-medium text-orange-700
+                      bg-orange-50 p-3 rounded-xl border border-orange-100">
+            <span class="mt-0.5 shrink-0">📌</span>
+            <span>Location not detected yet. Click below to retrieve your live zone.</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-gray-50 rounded-xl p-3 border border-gray-100 text-center">
+              <div class="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Latitude</div>
+              <div id="locLat" class="font-mono text-sm font-bold text-gray-800">—</div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-3 border border-gray-100 text-center">
+              <div class="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Longitude</div>
+              <div id="locLon" class="font-mono text-sm font-bold text-gray-800">—</div>
+            </div>
+          </div>
+
+          <button class="btn-primary w-full" onclick="detectLocation()">
+            📍 Detect Location
+          </button>
+        </div>
+
+        <!-- ADD EXERCISE CARD -->
+        <div class="glass-card space-y-4 animate-slide-up animate-delay-2">
+          <h3 class="section-title">➕ Add Exercise</h3>
+          <p class="section-desc">Fill in details and optionally drag a workout image below.</p>
+
+          <!-- Exercise Name -->
+          <div class="space-y-1">
+            <label for="workoutName" class="block text-xs font-semibold text-gray-600 uppercase tracking-wider">Exercise
+              Name</label>
+            <input type="text" id="workoutName" class="input-glass" placeholder="e.g. Bicycle Crunches 🚴">
+          </div>
+
+          <!-- Category -->
+          <div class="space-y-1">
+            <label for="workoutCategory"
+              class="block text-xs font-semibold text-gray-600 uppercase tracking-wider">Category</label>
+            <select id="workoutCategory" class="input-glass cursor-pointer">
+              <option value="Strength">💪 Strength</option>
+              <option value="Cardio">🏃 Cardio</option>
+              <option value="Flexibility">🧘 Flexibility</option>
+              <option value="Endurance">🚴 Endurance</option>
+            </select>
+          </div>
+
+          <!-- Duration -->
+          <div class="space-y-1">
+            <label for="workoutDuration"
+              class="block text-xs font-semibold text-gray-600 uppercase tracking-wider">Duration / Reps</label>
+            <input type="text" id="workoutDuration" class="input-glass" placeholder="e.g. 3 sets × 15 reps ⏱️">
+          </div>
+
+          <!-- Drop Zone -->
+          <div class="space-y-1">
+            <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wider">Workout Image Drop
+              Zone</label>
+            <div id="formDropZone" class="group">
+              <span class="text-3xl block mb-1 animate-float">📥</span>
+              <span class="block text-sm font-semibold text-gray-600 group-hover:text-orange-600 transition-colors">Drag
+                &amp; Drop Image Here</span>
+              <span class="block text-xs text-gray-400 mt-0.5">or a default image will be assigned</span>
+              <img id="formImagePreview" src=""
+                class="hidden w-full h-32 object-cover rounded-xl mt-3 border border-gray-200 shadow" alt="Preview">
+            </div>
+          </div>
+
+          <button id="addWorkoutBtn" class="btn-primary w-full text-sm py-2.5">
+            ➕ Add Workout
+          </button>
+        </div>
+
+        <!-- IMAGE BANK CARD -->
+        <div class="glass-card space-y-4 animate-slide-up animate-delay-3">
+          <h3 class="section-title">🖼️ Workout Image Bank</h3>
+          <p class="section-desc">Search and drag any image onto a card or the drop zone.</p>
+
+          <div class="relative">
+            <span
+              class="absolute left-3 top-1/2 -translate-y-1/2 text-orange-400 text-base pointer-events-none">🔍</span>
+            <input type="text" id="imageSearch" class="input-glass pl-10" placeholder="Search: running, yoga, squats…"
+              onkeyup="filterImages()">
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 max-h-72 overflow-y-auto pr-1" id="imageBankGrid">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- ─── RIGHT MAIN CONTENT ─────────────── -->
+      <main class="lg:col-span-8 flex flex-col gap-6">
+
+        <!-- TRACKED ROUTINE CARD -->
+        <div class="glass-card animate-fade-in animate-delay-1">
+          <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
+            <h3 class="section-title mb-0">💪 Tracked Routine</h3>
+            <span class="badge-orange" id="cardCount">0 Exercises</span>
+          </div>
+          <p class="section-desc">Drag images from the bank onto cards to swap their photo.</p>
+
+          <!-- Exercise Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="exerciseGrid">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- DIET PLANS CARD -->
+        <div class="glass-card animate-fade-in animate-delay-2">
+          <div class="border-b border-gray-100 pb-4 mb-5">
+            <h3 class="section-title mb-0">🥗 Healthy Diet Plans</h3>
+            <p class="section-desc mt-1 mb-0">Synchronize nutrition with your daily fitness goals.</p>
+          </div>
+
+          <!-- Diet grid — fixed equal height, no overlap -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+            <div class="diet-card border-b-orange-400 animate-fade-in animate-delay-1"
+              onclick="openQuoteModal('Breakfast','🍳','350 kcal',['🥚 Protein','🌾 Oats','🍌 Banana'])">
+              <span class="diet-icon">🍳</span>
+              <h4>Breakfast</h4>
+              <p>Oats, eggs &amp; banana<br><span class="kcal">350 kcal</span></p>
+            </div>
+
+            <div class="diet-card border-b-orange-500 animate-fade-in animate-delay-2"
+              onclick="openQuoteModal('Lunch','🥗','500 kcal',['🍗 Chicken','🥦 Greens','🍋 Lemon'])">
+              <span class="diet-icon" style="animation-delay:0.3s;">🥗</span>
+              <h4>Lunch</h4>
+              <p>Grilled chicken salad<br><span class="kcal">500 kcal</span></p>
+            </div>
+
+            <div class="diet-card border-b-amber-400 animate-fade-in animate-delay-3"
+              onclick="openQuoteModal('Snacks','🍎','200 kcal',['🌰 Almonds','🍎 Apple','💧 Hydrate'])">
+              <span class="diet-icon" style="animation-delay:0.6s;">🍎</span>
+              <h4>Snacks</h4>
+              <p>Almonds &amp; apple<br><span class="kcal">200 kcal</span></p>
+            </div>
+
+            <div class="diet-card border-b-red-400 animate-fade-in animate-delay-4"
+              onclick="openQuoteModal('Dinner','🍲','450 kcal',['🧀 Paneer','🥕 Veggies','🌿 Herbs'])">
+              <span class="diet-icon" style="animation-delay:0.9s;">🍲</span>
+              <h4>Dinner</h4>
+              <p>Paneer &amp; veggies<br><span class="kcal">450 kcal</span></p>
+            </div>
+
+          </div>
+
+          <!-- Total kcal bar -->
+          <div
+            class="mt-5 bg-orange-50 border border-orange-100 rounded-xl px-4 py-3 flex items-center justify-between">
+            <span class="text-sm font-semibold text-orange-700">🔥 Daily Total</span>
+            <span class="text-lg font-black text-orange-600">1500 kcal</span>
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- ── FOOTER ─────────────────────────────── -->
+    <footer class="text-center py-6 text-gray-400 text-xs border-t border-gray-100">
+      <p class="font-semibold text-gray-500 mb-1">FitTrack Premium &copy; 2026</p>
+      <p>Built with Tailwind CSS · AI Voice · Geolocation API · Drag &amp; Drop</p>
+    </footer>
+  </div>
+
+  <!-- ── RESPONSIVE DEBUGGER ─────────────────── -->
+  <div class="fixed bottom-4 right-4 z-50">
+    <button id="showDebuggerBtn" style="display:none;" class="bg-white border border-gray-200 shadow-lg text-gray-600
+                   p-3 rounded-full hover:bg-orange-50 hover:border-orange-300
+                   hover:text-orange-600 transition-all hover:scale-110" title="Layout Debugger">🛠️</button>
+
+    <div id="debuggerWidget" style="display:none;"
+      class="glass-card p-4 text-xs space-y-2 w-64 shadow-xl border-gray-200">
+      <div class="flex justify-between items-center border-b border-gray-100 pb-2 mb-2">
+        <h4 class="font-bold text-gray-800">📐 Debugger</h4>
+        <button id="toggleDebugger" class="w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200
+                       text-gray-500 flex items-center justify-center">✖</button>
+      </div>
+      <div class="flex justify-between"><span class="text-gray-400">Viewport:</span><span id="viewportSize"
+          class="text-orange-600 font-mono font-semibold"></span></div>
+      <div class="flex justify-between"><span class="text-gray-400">Breakpoint:</span><span id="activeBreakpoint"
+          class="text-green-600 font-semibold"></span></div>
+      <div class="flex justify-between"><span class="text-gray-400">Grid:</span><span id="gridCols"
+          class="text-purple-600 font-semibold"></span></div>
+      <div class="flex justify-between"><span class="text-gray-400">Title size:</span><span id="titleFontSize"
+          class="text-yellow-600 font-semibold"></span></div>
+      <div class="flex justify-between truncate"><span class="text-gray-400 mr-2">Image:</span><span id="loadedImageSrc"
+          class="text-gray-500 truncate"></span></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MOTIVATIONAL QUOTE MODAL (diet click)
+       ========================================== -->
+  <div id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="quoteHeading">
+    <div class="modal-box">
+      <!-- Animated icon -->
+      <div id="quoteMealIcon" class="text-6xl mb-4 block" style="animation: float 2.5s ease-in-out infinite;">🥗</div>
+      <!-- Quote text -->
+      <p id="quoteText" class="text-xl font-display font-bold text-gray-800 leading-snug mb-3"
+        style="animation: quotePop 0.5s ease-out forwards;"></p>
+      <!-- Meal name sub-label -->
+      <p id="quoteMealLabel" class="text-xs font-semibold text-orange-500 uppercase tracking-widest mb-6"></p>
+      <!-- Nutrition detail -->
+      <div id="quoteNutrition" class="flex justify-center gap-3 mb-6 flex-wrap"></div>
+      <!-- Close button -->
+      <button onclick="closeQuoteModal()" class="btn-primary w-full py-3 text-sm">
+        💪 Let's Crush It!
+      </button>
+    </div>
+  </div>
+
+</body>
+
+</html>

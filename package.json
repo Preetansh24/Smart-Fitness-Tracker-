@@ -1,0 +1,21 @@
+{
+  "name": "smart-fitness-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tailwindcss -i ./input.css -o ./style.css",
+    "watch": "tailwindcss -i ./input.css -o ./style.css --watch",
+    "start": "live-server --port=8080 --open=viewport.html --no-browser"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "live-server": "^1.2.2",
+    "tailwindcss": "^3.4.19"
+  }
+}

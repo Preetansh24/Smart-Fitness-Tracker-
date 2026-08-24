@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitTrack - Client Registration (Online)</title>
+  <!-- Bootstrap 5 CDN (Online) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f1f3f9; /* Match app bg */
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    .registration-container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 8px 32px 0 rgba(148, 163, 184, 0.12);
+    }
+    .brand-title {
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 25px;
+    }
+    .brand-title span {
+      color: #ff6b00;
+    }
+    .form-control {
+      background-color: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: #0f172a;
+      transition: all 0.3s ease;
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .form-control:focus {
+      border-color: #ff6b00;
+      box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.12);
+      background-color: #ffffff;
+      color: #0f172a;
+    }
+    .form-label {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .btn-primary {
+      background: #ff6b00;
+      border: none;
+      font-weight: 700;
+      padding: 14px 20px;
+      border-radius: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(255, 107, 0, 0.2);
+    }
+    .btn-primary:hover, .btn-primary:active {
+      background: #e05e00 !important;
+      transform: translateY(-1px);
+    }
+    .text-muted {
+      color: #94a3b8 !important;
+    }
+    .message-container {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="registration-container" id="regContainer">
+      <h2 class="text-center brand-title">Fit<span>Track</span> Registration</h2>
+      <p class="text-center text-muted mb-4">Join our premium fitness tracking platform.</p>
+      
+      <form id="registrationForm">
+        <div class="mb-3">
+          <label for="customerId" class="form-label">Customer ID</label>
+          <input type="text" class="form-control" id="customerId" placeholder="e.g. FIT-1001" required>
+        </div>
+        
+        <div class="mb-3">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+        </div>
+        
+        <div class="mb-3">
+          <label for="mobileNumber" class="form-label">Mobile Number</label>
+          <input type="tel" class="form-control" id="mobileNumber" placeholder="Enter your mobile number" required>
+        </div>
+        
+        <div class="mb-3">
+          <label for="emailId" class="form-label">Email ID</label>
+          <input type="email" class="form-control" id="emailId" placeholder="name@example.com" required>
+        </div>
+        
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Create a password" required>
+        </div>
+        
+        <div class="mb-4">
+          <label for="address" class="form-label">Address</label>
+          <textarea class="form-control" id="address" rows="3" placeholder="Enter your full address" required></textarea>
+        </div>
+        
+        <div class="d-grid mt-2">
+          <button type="submit" class="btn btn-primary btn-lg">Register Account</button>
+        </div>
+        <div class="text-center mt-3">
+          <span class="text-muted" style="font-size: 0.85rem;">Already have an account? <a href="login-online.html" style="color: #ff6b00; text-decoration: none; font-weight: 600;">Log In</a></span>
+        </div>
+      </form>
+    </div>
+
+    <!-- Already Registered State -->
+    <div class="registration-container message-container" id="alreadyRegisteredMsg">
+      <h2 class="text-center brand-title">Fit<span>Track</span></h2>
+      <h4 class="mb-3">You are already registered!</h4>
+      <p class="text-muted mb-4">You have already created an account on this device.</p>
+      <div class="d-grid gap-2">
+        <a href="login-online.html" class="btn btn-primary">Go to Login</a>
+        <a href="viewport.html" class="btn btn-outline-secondary">Back to Dashboard</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Check if user is already registered
+    document.addEventListener("DOMContentLoaded", () => {
+      const existingUser = localStorage.getItem('fittrack_user');
+      if (existingUser) {
+        document.getElementById('regContainer').style.display = 'none';
+        document.getElementById('alreadyRegisteredMsg').style.display = 'block';
+      }
+    });
+
+    // Handle form submission
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const userObj = {
+        customerId: document.getElementById('customerId').value,
+        firstName: document.getElementById('firstName').value,
+        mobileNumber: document.getElementById('mobileNumber').value,
+        emailId: document.getElementById('emailId').value,
+        password: document.getElementById('password').value,
+        address: document.getElementById('address').value
+      };
+      
+      // Save to localStorage
+      localStorage.setItem('fittrack_user', JSON.stringify(userObj));
+      
+      // Redirect to login page
+      window.location.href = 'login-online.html';
+    });
+  </script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

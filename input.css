@@ -1,0 +1,276 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================
+   GLOBAL BASE — plain CSS, no @apply warnings
+   ============================================= */
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #fafafa;
+    color: #111827;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* Custom orange scrollbar */
+  ::-webkit-scrollbar             { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track       { background: transparent; }
+  ::-webkit-scrollbar-thumb       { background: rgba(249,115,22,0.3); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(249,115,22,0.7); }
+}
+
+/* =============================================
+   COMPONENT LAYER
+   Note: @apply is ONLY used with plain utility
+   names — NO hover: / focus: / active: prefixes
+   ============================================= */
+@layer components {
+
+  /* ── Cards ──────────────────────────────── */
+  .glass-card {
+    @apply bg-white rounded-2xl p-6 border border-gray-100 shadow-sm;
+    transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+  }
+  .glass-card:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    border-color: #fed7aa; /* orange-200 */
+  }
+
+  /* ── Primary Button ─────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-orange-500 text-white font-semibold
+           rounded-full px-6 py-2 cursor-pointer;
+    box-shadow: 0 2px 8px rgba(249,115,22,0.25);
+    transition: background-color 0.25s, box-shadow 0.25s, transform 0.2s;
+    animation: pulseRing 2.5s ease-out infinite;
+  }
+  .btn-primary:hover {
+    background-color: #ea580c; /* orange-600 */
+    box-shadow: 0 6px 20px rgba(249,115,22,0.45);
+    transform: translateY(-2px);
+    animation: none;
+  }
+  .btn-primary:active {
+    background-color: #c2410c; /* orange-700 */
+    transform: translateY(0);
+  }
+
+  /* ── Secondary Button ───────────────────── */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-gray-100 border border-gray-200
+           text-gray-700 font-semibold rounded-full px-5 py-2 cursor-pointer;
+    transition: background-color 0.25s, border-color 0.25s, color 0.25s;
+  }
+  .btn-secondary:hover {
+    background-color: #fff7ed; /* orange-50 */
+    border-color: #fdba74;     /* orange-300 */
+    color: #ea580c;            /* orange-600 */
+  }
+
+  /* ── Animated Gradient Text ─────────────── */
+  .text-gradient {
+    background: linear-gradient(90deg, #f97316, #ef4444, #f59e0b, #f97316);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* ── Inputs ─────────────────────────────── */
+  .input-glass {
+    @apply w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-gray-900 text-sm;
+    transition: border-color 0.25s, box-shadow 0.25s, background-color 0.25s;
+    outline: none;
+  }
+  .input-glass::placeholder {
+    color: #9ca3af;
+    transition: color 0.35s;
+  }
+  .input-glass:focus {
+    background-color: #fff;
+    border-color: transparent;
+    box-shadow: 0 0 0 2px #fb923c; /* orange-400 ring */
+  }
+  .input-glass:focus::placeholder {
+    color: #fdba74; /* orange-300 — animated placeholder shift */
+  }
+
+  /* ── Stat Chips ─────────────────────────── */
+  .stat-chip {
+    @apply flex flex-col items-center justify-center
+           bg-orange-50 border border-orange-100
+           rounded-2xl px-5 py-3;
+    min-width: 100px;
+    transition: background-color 0.25s, border-color 0.25s, transform 0.2s;
+    cursor: default;
+  }
+  .stat-chip:hover {
+    background-color: #ffedd5; /* orange-100 */
+    border-color: #fed7aa;     /* orange-200 */
+    transform: translateY(-2px);
+  }
+  .stat-chip .val { @apply text-2xl font-extrabold text-orange-600 leading-tight; }
+  .stat-chip .lbl { @apply text-xs font-medium text-orange-400 uppercase tracking-wide; margin-top: 2px; }
+
+  /* ── Diet Cards ─────────────────────────── */
+  .diet-card {
+    @apply flex flex-col items-center bg-white border border-gray-100 border-b-4 rounded-2xl p-5 text-center shadow-sm;
+    min-height: 170px;
+    cursor: pointer;
+    transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+  }
+  .diet-card:hover {
+    box-shadow: 0 8px 24px rgba(249,115,22,0.12);
+    transform: translateY(-4px);
+    border-color: #e5e7eb; /* gray-200 */
+  }
+  /* Click ripple burst on diet card */
+  .diet-card:active { transform: scale(0.97); }
+
+  .diet-card .diet-icon { @apply text-4xl block; margin-bottom: 8px; animation: float 3s ease-in-out infinite; }
+  .diet-card h4         { @apply font-display font-bold text-base text-gray-800; margin-bottom: 4px; }
+  .diet-card p          { @apply text-xs text-gray-500 leading-relaxed; }
+  .diet-card .kcal      { @apply font-bold text-orange-500 block; margin-top: 4px; }
+
+  /* ── Exercise Cards (JS-generated) ─────── */
+  .exercise-card {
+    @apply bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .exercise-card:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transform: translateY(-4px);
+  }
+  .exercise-card.drag-over {
+    border: 2px solid #fb923c; /* orange-400 */
+    box-shadow: 0 0 0 4px rgba(251,146,60,0.2);
+  }
+
+  /* Exercise card clicked: pump animation */
+  .exercise-card.card-pump {
+    animation: cardPump 0.5s ease-out;
+  }
+
+  /* ── Image Bank Item ────────────────────── */
+  .image-bank-item {
+    @apply relative rounded-xl overflow-hidden border border-gray-100;
+    cursor: grab;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .image-bank-item:hover {
+    border-color: #fb923c;
+    box-shadow: 0 4px 12px rgba(249,115,22,0.2);
+  }
+  .image-bank-item img {
+    @apply w-full h-24 object-cover;
+    transition: transform 0.5s;
+  }
+  .image-bank-item:hover img { transform: scale(1.1); }
+
+  /* ── Drop Zone ──────────────────────────── */
+  #formDropZone {
+    @apply border-2 border-dashed border-gray-300 rounded-xl p-6 text-center bg-gray-50;
+    transition: background-color 0.25s, border-color 0.25s;
+  }
+  #formDropZone:hover {
+    background-color: #fff7ed;
+    border-color: #fb923c;
+  }
+  #formDropZone.drag-over {
+    background-color: #fff7ed;
+    border-color: #f97316;
+    box-shadow: inset 0 2px 8px rgba(249,115,22,0.1);
+  }
+
+  /* ── Badge / Pill ───────────────────────── */
+  .badge-orange {
+    @apply inline-block bg-orange-100 text-orange-700 border border-orange-200
+           px-3 py-1 rounded-full text-xs font-semibold tracking-wide;
+  }
+
+  /* ── Section Headings ───────────────────── */
+  .section-title {
+    @apply flex items-center gap-2 text-xl font-display font-bold text-gray-900;
+    margin-bottom: 4px;
+  }
+  .section-desc {
+    @apply text-sm text-gray-400;
+    margin-bottom: 16px;
+  }
+
+  /* ── Motivational Quote Modal ───────────── */
+  #quoteModal {
+    @apply fixed inset-0 z-50 flex items-center justify-center;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  #quoteModal.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  #quoteModal .modal-box {
+    @apply bg-white rounded-3xl p-8 mx-4 text-center shadow-2xl border border-orange-100;
+    max-width: 420px;
+    width: 100%;
+    transform: scale(0.85) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  #quoteModal.open .modal-box {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* =============================================
+   UTILITY OVERRIDES
+   ============================================= */
+@layer utilities {
+  .animate-delay-1 { animation-delay: 0.1s; }
+  .animate-delay-2 { animation-delay: 0.2s; }
+  .animate-delay-3 { animation-delay: 0.3s; }
+  .animate-delay-4 { animation-delay: 0.4s; }
+
+  .hero-glow {
+    box-shadow: 0 0 0 3px #fed7aa, 0 8px 32px rgba(249,115,22,0.12);
+  }
+
+  /* Card pump keyframe — exercise card click animation */
+  @keyframes cardPump {
+    0%   { transform: scale(1)    translateY(-4px); }
+    30%  { transform: scale(1.06) translateY(-8px); box-shadow: 0 16px 40px rgba(249,115,22,0.3); }
+    60%  { transform: scale(0.97) translateY(-2px); }
+    100% { transform: scale(1)    translateY(-4px); }
+  }
+
+  /* Shimmer — gradient text animation */
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+
+  /* Float — diet icons */
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-6px); }
+  }
+
+  /* Pulse ring — button idle glow */
+  @keyframes pulseRing {
+    0%   { box-shadow: 0 0 0 0   rgba(249,115,22,0.5); }
+    70%  { box-shadow: 0 0 0 10px rgba(249,115,22,0);  }
+    100% { box-shadow: 0 0 0 0   rgba(249,115,22,0);   }
+  }
+
+  /* Quote pop-in */
+  @keyframes quotePop {
+    0%   { transform: scale(0.7) rotate(-3deg); opacity: 0; }
+    60%  { transform: scale(1.05) rotate(1deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg);    opacity: 1; }
+  }
+}

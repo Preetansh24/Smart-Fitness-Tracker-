@@ -1,0 +1,24 @@
+/* 
+ * Bootstrap v5.3.3 (https://getbootstrap.com/)
+ * This is a placeholder file for the offline Bootstrap CSS.
+ * In a real-world scenario, you would download the full bootstrap.min.css from 
+ * https://getbootstrap.com/ and place it here.
+ */
+ 
+/* Adding a few basic styles to ensure the page still looks okay offline without the full file */
+:root {
+  --bs-body-bg: #0f172a;
+  --bs-body-color: #f8fafc;
+}
+.text-center { text-align: center !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+.d-grid { display: grid !important; }
+.container {
+  width: 100%;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: auto;
+  margin-left: auto;
+}

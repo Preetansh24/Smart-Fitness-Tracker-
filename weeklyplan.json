@@ -1,0 +1,28 @@
+{
+  "weeklyWorkoutPlan": [
+    {
+      "day": "Monday",
+      "focus": "Upper Body",
+      "exercises": [
+        { "name": "Push Ups", "sets": 3, "reps": 15 },
+        { "name": "Bicep Curls", "sets": 3, "reps": 12 }
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "focus": "Lower Body",
+      "exercises": [
+        { "name": "Squats", "sets": 4, "reps": 20 },
+        { "name": "Lunges", "sets": 3, "reps": 15 }
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "focus": "Cardio",
+      "exercises": [
+        { "name": "Running", "sets": 1, "reps": "20 min" },
+        { "name": "Jumping Jacks", "sets": 3, "reps": 30 }
+      ]
+    }
+  ]
+}
